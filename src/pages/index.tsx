@@ -7,10 +7,9 @@ import { i18n, Language } from '../lib/i18n';
 const handleClick: React.MouseEventHandler = () => {
   const currentLanguage = i18n.language;
 
-  i18n.changeLanguage(
-    currentLanguage === Language.EN ? Language.RU : Language.EN,
-  );
-};const IndexPage: NextPage = () => {
+  i18n.changeLanguage(currentLanguage === Language.EN ? Language.RU : Language.EN);
+};
+const IndexPage: NextPage = () => {
   const [t] = useTranslation('common');
   const apolloClient = useApolloClient();
 

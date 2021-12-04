@@ -5,13 +5,7 @@ interface ErrorPageProps {
 }
 
 const ErrorPage: NextPage<ErrorPageProps> = ({ statusCode }) => {
-  return (
-    <div>
-      {statusCode
-        ? `An error ${statusCode} occurred on server`
-        : 'An error occurred on client'}
-    </div>
-  );
+  return <div>{statusCode ? `An error ${statusCode} occurred on server` : 'An error occurred on client'}</div>;
 };
 
 ErrorPage.getInitialProps = ({ res, err }) => {

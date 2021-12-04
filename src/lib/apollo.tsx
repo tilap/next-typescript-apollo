@@ -16,9 +16,7 @@ export const APOLLO_STATE_PROPERTY_NAME = '__APOLLO_STATE__';
 export const COOKIES_TOKEN_NAME = 'jwt';
 
 const getToken = (req?: IncomingMessage) => {
-  const parsedCookie = cookie.parse(
-    req ? req.headers.cookie ?? '' : document.cookie,
-  );
+  const parsedCookie = cookie.parse(req ? req.headers.cookie ?? '' : document.cookie);
 
   return parsedCookie[COOKIES_TOKEN_NAME];
 };
@@ -65,9 +63,7 @@ export function initializeApollo(initialState = null, ctx = null) {
       // combine arrays using object equality (like in sets)
       arrayMerge: (destinationArray, sourceArray) => [
         ...sourceArray,
-        ...destinationArray.filter((d) =>
-          sourceArray.every((s) => !isEqual(d, s)),
-        ),
+        ...destinationArray.filter((d) => sourceArray.every((s) => !isEqual(d, s))),
       ],
     });
 
@@ -88,10 +84,7 @@ export function initializeApollo(initialState = null, ctx = null) {
   return client;
 }
 
-export function addApolloState(
-  client: ApolloClient<NormalizedCacheObject>,
-  pageProps: PageProps,
-) {
+export function addApolloState(client: ApolloClient<NormalizedCacheObject>, pageProps: PageProps) {
   if (pageProps?.props) {
     pageProps.props[APOLLO_STATE_PROPERTY_NAME] = client.cache.extract();
   }
