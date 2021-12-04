@@ -25,6 +25,12 @@ next-advanced-apollo-starter
 - Localization via [react-i18next](https://react.i18next.com/).
 - [TypeScript](https://www.typescriptlang.org/) environment.
 - [Normalize.css](https://necolas.github.io/normalize.css/) included.
+- Code linting:
+  - eslint with basics nextjs, import, unicorn, prettier rules
+  - lint-staged to process when commiting
+  - Husky for hooks
+  - prettier
+  - commitlint
 - _No custom server_.
 
 ### Developer experience
@@ -37,15 +43,15 @@ next-advanced-apollo-starter
 
 ## Getting started
 
-### Start development server
+### Install
 
-In order to start development, you should run _one of these commands_:
+Install dependancies
 
 ```bash
 npm install
 ```
 
-After installation is complete, simply start development server:
+### Start development server
 
 ```bash
 npm run dev

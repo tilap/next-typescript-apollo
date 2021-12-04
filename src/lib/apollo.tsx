@@ -1,12 +1,12 @@
-import { useMemo } from 'react';
-import merge from 'deepmerge';
-import cookie from 'cookie';
-import type { GetServerSidePropsContext } from 'next';
 import type { IncomingMessage } from 'http';
 import type { NormalizedCacheObject } from '@apollo/client';
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import cookie from 'cookie';
+import merge from 'deepmerge';
 import isEqual from 'lodash.isequal';
+import type { GetServerSidePropsContext } from 'next';
+import { useMemo } from 'react';
 
 interface PageProps {
   props?: Record<string, any>;
@@ -16,9 +16,7 @@ export const APOLLO_STATE_PROPERTY_NAME = '__APOLLO_STATE__';
 export const COOKIES_TOKEN_NAME = 'jwt';
 
 const getToken = (req?: IncomingMessage) => {
-  const parsedCookie = cookie.parse(
-    req ? req.headers.cookie ?? '' : document.cookie,
-  );
+  const parsedCookie = cookie.parse(req ? req.headers.cookie ?? '' : document.cookie);
 
   return parsedCookie[COOKIES_TOKEN_NAME];
 };
@@ -45,6 +43,7 @@ const createApolloClient = (ctx?: GetServerSidePropsContext) => {
 
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
+    // eslint-disable-next-line unicorn/prefer-spread
     link: authLink.concat(httpLink),
     cache: new InMemoryCache(),
   });
@@ -64,9 +63,7 @@ export function initializeApollo(initialState = null, ctx = null) {
       // combine arrays using object equality (like in sets)
       arrayMerge: (destinationArray, sourceArray) => [
         ...sourceArray,
-        ...destinationArray.filter((d) =>
-          sourceArray.every((s) => !isEqual(d, s)),
-        ),
+        ...destinationArray.filter((d) => sourceArray.every((s) => !isEqual(d, s))),
       ],
     });
 
@@ -87,10 +84,7 @@ export function initializeApollo(initialState = null, ctx = null) {
   return client;
 }
 
-export function addApolloState(
-  client: ApolloClient<NormalizedCacheObject>,
-  pageProps: PageProps,
-) {
+export function addApolloState(client: ApolloClient<NormalizedCacheObject>, pageProps: PageProps) {
   if (pageProps?.props) {
     pageProps.props[APOLLO_STATE_PROPERTY_NAME] = client.cache.extract();
   }
