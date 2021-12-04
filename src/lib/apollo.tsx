@@ -1,12 +1,12 @@
-import { useMemo } from 'react';
-import merge from 'deepmerge';
-import cookie from 'cookie';
-import type { GetServerSidePropsContext } from 'next';
 import type { IncomingMessage } from 'http';
 import type { NormalizedCacheObject } from '@apollo/client';
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import cookie from 'cookie';
+import merge from 'deepmerge';
 import isEqual from 'lodash.isequal';
+import type { GetServerSidePropsContext } from 'next';
+import { useMemo } from 'react';
 
 interface PageProps {
   props?: Record<string, any>;
@@ -45,6 +45,7 @@ const createApolloClient = (ctx?: GetServerSidePropsContext) => {
 
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
+    // eslint-disable-next-line unicorn/prefer-spread
     link: authLink.concat(httpLink),
     cache: new InMemoryCache(),
   });

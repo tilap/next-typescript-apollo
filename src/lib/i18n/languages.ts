@@ -1,6 +1,5 @@
-enum Language {
-  EN = 'en',
-  RU = 'ru',
+export enum Language {
+  "EN" = 'en',
+  "RU" = 'ru',
 }
 
-export { Language };

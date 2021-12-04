@@ -10,6 +10,7 @@ i18n
     resourcesToBackend((language, namespace, callback) => {
       return callback(
         null,
+        // eslint-disable-next-line unicorn/prefer-module
         require(`../../locales/${language}/${namespace}.json`),
       );
     }),
@@ -31,4 +32,4 @@ i18n
     },
   });
 
-export { i18n };
+export { default } from 'i18next';
