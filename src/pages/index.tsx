@@ -15,7 +15,7 @@ const IndexPage: NextPage = () => {
       currentLanguage === Language.EN ? Language.RU : Language.EN,
     );
   };
-
+  console.log(process.env.NEXT_PUBLIC_GRAPHQL_URI)
   return (
     <div>
       <p

@@ -37,15 +37,15 @@ next-advanced-apollo-starter
 
 ## Getting started
 
-### Start development server
+### Install
 
-In order to start development, you should run _one of these commands_:
+Install dependancies
 
 ```bash
 npm install
 ```
 
-After installation is complete, simply start development server:
+### Start development server
 
 ```bash
 npm run dev
