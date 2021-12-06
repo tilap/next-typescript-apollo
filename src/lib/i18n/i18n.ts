@@ -1,8 +1,7 @@
 import i18n from 'i18next';
 import resourcesToBackend from 'i18next-resources-to-backend';
 import { initReactI18next } from 'react-i18next';
-
-import { Language } from './languages';
+import { defaultLanguage } from './languages';
 
 // Initialize i18n
 i18n
@@ -19,7 +18,7 @@ i18n
   .init({
     ns: ['common'],
     initImmediate: false,
-    fallbackLng: Language.EN,
+    fallbackLng: defaultLanguage,
     editor: {
       onEditorSaved: async (lng, ns) => {
         await i18n.reloadResources(lng, ns);

@@ -24,20 +24,18 @@ next-advanced-apollo-starter
   cookie-based [JWT](https://jwt.io/) token authentication.
 - Localization via [react-i18next](https://react.i18next.com/).
 - [TypeScript](https://www.typescriptlang.org/) environment.
-- [Normalize.css](https://necolas.github.io/normalize.css/) included.
 - Code linting:
-  - eslint with basics nextjs, import, unicorn, prettier rules
-  - lint-staged to process when commiting
-  - Husky for hooks
-  - prettier
-  - commitlint
+  - [eslint](https://eslint.org/) with awesome plugins: [nextjs](https://www.npmjs.com/package/eslint-config-nextjs), [import](https://www.npmjs.com/package/eslint-plugin-import), [unicorn](https://www.npmjs.com/package/eslint-plugin-unicorn).
+  - [prettier](https://prettier.io/)
+  - [lint-staged](https://www.npmjs.com/package/lint-staged) to process when commiting
+  - [husky](https://www.npmjs.com/package/husky) with hooks configured
+  - [commitlint](https://www.npmjs.com/package/commitlint)
 - _No custom server_.
 
 ### Developer experience
 
-- Testing environment via [Jest](https://jestjs.io/)
-  and [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro).
-- [Prettier](https://prettier.io/) for code formatting.
+- Testing environment via [Jest](https://jestjs.io/) and [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro).
+- Git hooks for pre-commit, pre-push and commit message.
 - Debug configuration for [VSCode](https://code.visualstudio.com/).
 - [Docker](https://www.docker.com/) configuration to serve **production-ready** build with Nginx.
 
@@ -48,13 +46,13 @@ next-advanced-apollo-starter
 Install dependancies
 
 ```bash
-npm install
+yarn install
 ```
 
 ### Start development server
 
 ```bash
-npm run dev
+yarn run dev
 ```
 
 ## Apollo usage
@@ -128,7 +126,7 @@ export default MyPage;
 from `package.json`:
 
 ```bash
-npm test
+yarn test
 ```
 
 ---
