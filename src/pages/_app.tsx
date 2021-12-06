@@ -6,9 +6,6 @@ import type { AppProps } from 'next/app';
 import 'lib/i18n';
 import { useApollo } from 'lib/apollo';
 
-// eslint-disable-next-line import/no-unassigned-import
-import 'normalize.css/normalize.css';
-
 const App: NextPage<AppProps> = ({ Component, pageProps }) => {
   const apolloClient = useApollo(pageProps);
 
