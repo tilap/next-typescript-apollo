@@ -9,9 +9,13 @@ const handleClick: React.MouseEventHandler = () => {
 
   i18n.changeLanguage(currentLanguage === Language.EN ? Language.RU : Language.EN);
 };
+
 const IndexPage: NextPage = () => {
-  const [t] = useTranslation('common');
+  const [t] = useTranslation('pages/index');
+  const [tI18n] = useTranslation('i18n');
   const apolloClient = useApolloClient();
+  const currentLanguage = i18n.language;
+  const otherLangages = Object.values(Language).filter((l) => l !== currentLanguage);
 
   return (
     <div>
@@ -21,7 +25,15 @@ const IndexPage: NextPage = () => {
         }}
       />
 
-      <button onClick={handleClick}>Change language</button>
+      {otherLangages.map((otherLangage) => (
+        <button
+          key={otherLangage}
+          data-testid={`language-switcher-button-${currentLanguage}-to-${otherLangage}`}
+          onClick={handleClick}
+        >
+          {tI18n(`${otherLangage}.changelanguage`)}
+        </button>
+      ))}
     </div>
   );
 };
