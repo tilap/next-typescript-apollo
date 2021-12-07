@@ -20,12 +20,12 @@
 
     // https://eslint.org/docs/rules/max-lines
     "max-lines": [
-    	"warn",
-    	{
-			"max": 200,
-			"skipBlankLines": false,
-			"skipComments": true
-		}
+      "warn",
+      {
+        "max": 200,
+        "skipBlankLines": false,
+        "skipComments": true
+      }
     ],
     "prettier/prettier": "error",
     // -------------------------------
@@ -162,5 +162,14 @@
     "unicorn/string-content": "off",
     "unicorn/template-indent": "warn",
     "unicorn/throw-new-error": "error"
-  }
+  },
+
+  "overrides": [
+    {
+      "files": ["*.js"],
+      "rules": {
+        "unicorn/prefer-module": "off"
+      }
+    }
+  ]
 }
