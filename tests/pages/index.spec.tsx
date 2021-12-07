@@ -1,13 +1,13 @@
 import { screen } from '@testing-library/react';
-import { renderWithApollo } from '../renderers'
+import { useRouter } from 'next/router';
 import Index from 'pages/index';
-import { useRouter } from "next/router";
+import { renderWithApollo } from '../renderers';
 
-jest.mock("next/router", () => ({
+jest.mock('next/router', () => ({
   useRouter: jest.fn(),
 }));
 
-jest.mock("react-i18next", () => ({
+jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: (key: string) => key }),
 }));
 
@@ -50,10 +50,10 @@ describe('Page Index', () => {
       const push = jest.fn();
       (useRouter as jest.Mock).mockImplementation(() => ({
         push,
-        pathname: "/",
-        route: "/",
-        asPath: "/",
-        query: "",
+        pathname: '/',
+        route: '/',
+        asPath: '/',
+        query: '',
         locale: 'fr',
         locales: ['en', 'ru', 'fr', 'nl'],
       }));

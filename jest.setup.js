@@ -4,3 +4,9 @@
 // Used for __tests__/testing-library.js
 // Learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom/extend-expect';
+
+// import { useRouter } from "next/router";
+
+jest.mock('next/router', () => ({
+  useRouter: jest.fn(),
+}));
