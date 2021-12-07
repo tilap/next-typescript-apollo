@@ -11,27 +11,23 @@
     // https://eslint.org/docs/rules/require-await
     "require-await": "error",
 
-    // -------------------------------
-    // Code complexity
-    // -------------------------------
-
-    // https://eslint.org/docs/2.0.0/rules/max-depth
+  // https://eslint.org/docs/2.0.0/rules/max-depth
     "max-depth": ["warn", 6],
 
     // https://eslint.org/docs/rules/max-lines
     "max-lines": [
-    	"warn",
-    	{
-			"max": 200,
-			"skipBlankLines": false,
-			"skipComments": true
-		}
+      "warn",
+      {
+        "max": 200,
+        "skipBlankLines": false,
+        "skipComments": true
+      }
     ],
     "prettier/prettier": "error",
+
     // -------------------------------
     // Import
     // -------------------------------
-
     "import/dynamic-import-chunkname": 1,
     "import/extensions": 1,
     "import/first": 1,
@@ -65,7 +61,9 @@
     ],
     "import/prefer-default-export": 1,
 
-    //
+    // -------------------------------
+    // Unicorn
+    // -------------------------------
     "unicorn/better-regex": "error",
     "unicorn/catch-error-name": "error",
     "unicorn/consistent-destructuring": "error",
@@ -162,5 +160,13 @@
     "unicorn/string-content": "off",
     "unicorn/template-indent": "warn",
     "unicorn/throw-new-error": "error"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*.js"],
+      "rules": {
+        "unicorn/prefer-module": "off"
+      }
+    }
+  ]
 }

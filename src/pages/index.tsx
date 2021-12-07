@@ -1,21 +1,15 @@
 import { useApolloClient } from '@apollo/client';
 import type { NextPage } from 'next';
-import { useTranslation } from 'react-i18next';
-
-import { i18n, Language } from 'lib/i18n';
-
-const handleClick: React.MouseEventHandler = () => {
-  const currentLanguage = i18n.language;
-
-  i18n.changeLanguage(currentLanguage === Language.EN ? Language.RU : Language.EN);
-};
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const IndexPage: NextPage = () => {
-  const [t] = useTranslation('pages/index');
-  const [tI18n] = useTranslation('i18n');
+  const { locale, locales } = useRouter();
+  const { t } = useTranslation('page__index');
+  const { t: tI18n } = useTranslation('i18n');
   const apolloClient = useApolloClient();
-  const currentLanguage = i18n.language;
-  const otherLangages = Object.values(Language).filter((l) => l !== currentLanguage);
 
   return (
     <div>
@@ -25,17 +19,21 @@ const IndexPage: NextPage = () => {
         }}
       />
 
-      {otherLangages.map((otherLangage) => (
-        <button
-          key={otherLangage}
-          data-testid={`language-switcher-button-${currentLanguage}-to-${otherLangage}`}
-          onClick={handleClick}
-        >
-          {tI18n(`${otherLangage}.changelanguage`)}
-        </button>
-      ))}
+      {locales
+        .filter((l) => l !== locale)
+        .map((otherLocale) => (
+          <Link key={otherLocale} href="/" locale={otherLocale} passHref>
+            <button data-testid={`changelanguage-btn-${otherLocale}`}>{tI18n(`${otherLocale}.changelanguage`)}</button>
+          </Link>
+        ))}
     </div>
   );
 };
+
+export const getStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ['page__index', 'common', 'i18n'])),
+  },
+});
 
 export default IndexPage;

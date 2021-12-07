@@ -1,38 +1,68 @@
-import { MockedProvider as ApolloMockedProvider } from '@apollo/client/testing';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
+import { useRouter } from 'next/router';
+import Index from 'pages/index';
+import { renderWithApollo } from '../renderers';
 
-import { i18n, Language } from '../../src/lib/i18n';
-import Index from '../../src/pages/index';
+jest.mock('next/router', () => ({
+  useRouter: jest.fn(),
+}));
 
-const renderWithApollo = (element: React.ReactElement) => {
-  render(element, { wrapper: ApolloMockedProvider });
-};
+jest.mock('react-i18next', () => ({
+  useTranslation: () => ({ t: (key: string) => key }),
+}));
 
-describe('Index page correctly renders in different locales', () => {
-  it('renders in English', () => {
-    i18n.init({ lng: Language.EN });
-    renderWithApollo(<Index />);
-    expect(screen.getByText(/hi!/i)).toBeInTheDocument();
+describe('Page Index', () => {
+  describe('Page does not change', () => {
+    it('match previous snapshot', () => {
+      (useRouter as jest.Mock).mockImplementation(() => ({
+        locale: 'en',
+        locales: ['en'],
+      }));
+      const result = renderWithApollo(<Index />);
+      expect(result.baseElement).toMatchSnapshot();
+    });
   });
 
-  it('renders in Russian', () => {
-    i18n.init({ lng: Language.RU });
-    renderWithApollo(<Index />);
-    expect(screen.getByText(/привет!/i)).toBeInTheDocument();
-  });
+  describe('Page shows button to switch language', () => {
+    it('does not render button when there is only one language available', () => {
+      (useRouter as jest.Mock).mockImplementation(() => ({
+        locale: 'en',
+        locales: ['en'],
+      }));
+      renderWithApollo(<Index />);
 
-  it('switch from english to russian', () => {
-    i18n.init({ lng: Language.EN });
+      expect(screen.queryByTestId('changelanguage-btn-en')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('changelanguage-btn-ru')).not.toBeInTheDocument();
+    });
 
-    renderWithApollo(<Index />);
+    it('renders one button when another language is available', () => {
+      (useRouter as jest.Mock).mockImplementation(() => ({
+        locale: 'en',
+        locales: ['en', 'ru'],
+      }));
+      renderWithApollo(<Index />);
 
-    const languageSwitcherButton = screen.getByTestId('language-switcher-button-en-to-ru');
+      expect(screen.queryByTestId('changelanguage-btn-en')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('changelanguage-btn-ru')).toBeInTheDocument();
+    });
 
-    expect(i18n.language).toBe(Language.EN);
-    expect(languageSwitcherButton).toBeInTheDocument();
+    it('renders many buttons when another langages are available', () => {
+      const push = jest.fn();
+      (useRouter as jest.Mock).mockImplementation(() => ({
+        push,
+        pathname: '/',
+        route: '/',
+        asPath: '/',
+        query: '',
+        locale: 'fr',
+        locales: ['en', 'ru', 'fr', 'nl'],
+      }));
+      renderWithApollo(<Index />);
 
-    fireEvent.click(languageSwitcherButton);
-
-    expect(i18n.language).toBe(Language.RU);
+      expect(screen.queryByTestId('changelanguage-btn-fr')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('changelanguage-btn-en')).toBeInTheDocument();
+      expect(screen.queryByTestId('changelanguage-btn-ru')).toBeInTheDocument();
+      expect(screen.queryByTestId('changelanguage-btn-nl')).toBeInTheDocument();
+    });
   });
 });

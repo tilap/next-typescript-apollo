@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Page Index Page does not change match previous snapshot 1`] = `
+<body>
+  <div>
+    <div>
+      <p>
+        greetings
+      </p>
+    </div>
+  </div>
+</body>
+`;

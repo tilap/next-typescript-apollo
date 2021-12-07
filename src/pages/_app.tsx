@@ -1,9 +1,8 @@
 import { ApolloProvider } from '@apollo/client';
 import type { NextPage } from 'next';
+import { appWithTranslation } from 'next-i18next';
 import type { AppProps } from 'next/app';
 
-// eslint-disable-next-line import/no-unassigned-import
-import 'lib/i18n';
 import { useApollo } from 'lib/apollo';
 
 const App: NextPage<AppProps> = ({ Component, pageProps }) => {
@@ -16,4 +15,4 @@ const App: NextPage<AppProps> = ({ Component, pageProps }) => {
   );
 };
 
-export default App;
+export default appWithTranslation(App);
